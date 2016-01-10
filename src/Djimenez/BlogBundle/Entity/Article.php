@@ -46,14 +46,14 @@ class Article implements ArticleInterface
     /**
      * @var Answer
      *
-     * @ORM\OneToMany(targetEntity="Answer", mappedBy="article")
+     * @ORM\OneToMany(targetEntity="Djimenez\BlogBundle\Entity\Answer", mappedBy="article")
      */
     private $answers;
 
     /**
      * @var Rate
      *
-     * @ORM\OneToMany(targetEntity="Rate", mappedBy="article")
+     * @ORM\OneToMany(targetEntity="Djimenez\BlogBundle\Entity\Rate", mappedBy="article")
      */
     private $rates;
 

@@ -47,5 +47,4 @@ interface AnswerInterface
      * @return \Djimenez\BlogBundle\Entity\Article
      */
     public function getArticle();
-
 }

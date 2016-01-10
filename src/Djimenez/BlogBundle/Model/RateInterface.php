@@ -17,7 +17,6 @@ interface RateInterface
      * @return string
      */
     public function getValue();
-
     /**
      * Set article
      *

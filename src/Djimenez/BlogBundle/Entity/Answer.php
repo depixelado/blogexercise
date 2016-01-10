@@ -68,7 +68,6 @@ class Answer implements AnswerInterface
     {
         return $this->article;
     }
-    
 
     /**
      * Get id
@@ -125,6 +124,4 @@ class Answer implements AnswerInterface
     {
         return $this->body;
     }
-
-
 }
