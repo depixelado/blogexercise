@@ -1,0 +1,21 @@
+Djimenez\BlogBundle\Entity\Article:
+    properties:
+        author:
+            - NotBlank: ~
+            - NotNull: ~
+        title:
+            - NotBlank: ~
+            - NotNull: ~
+            - Length:
+                  min: 2
+                  max: 50
+                  minMessage: "Your title must be at least  characters length"
+                  maxMessage: "Your title name cannot be longer than  characters length"
+        body:
+            - NotBlank: ~
+            - NotNull: ~
+            - Length:
+                  min: 2
+                  max: 50
+                  minMessage: "Your title must be at least  characters length"
+                  maxMessage: "Your title name cannot be longer than  characters length"

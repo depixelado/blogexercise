@@ -1,6 +1,7 @@
 <?php
 namespace Djimenez\BlogBundle\Handler;
 
+
 interface ArticleHandlerInterface
 {
     /**
@@ -11,4 +12,13 @@ interface ArticleHandlerInterface
      * @return ArticleInterface
      */
     public function get($id);
+
+    /**
+     * Create a new Article.
+     *
+     * @param array $parameters
+     *
+     * @return ArticleInterface
+     */
+    public function post(array $parameters);
 }

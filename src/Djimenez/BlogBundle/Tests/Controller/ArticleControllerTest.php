@@ -30,6 +30,35 @@ class ArticleControllerTest extends WebTestCase
         $this->assertTrue(isset($decoded['id']));
     }
 
+    public function testJsonPostArticleAction()
+    {
+        $this->client = static::createClient();
+        $this->client->request(
+            'POST',
+            '/api/v1/articles.json',
+            array(),
+            array(),
+            array('CONTENT_TYPE' => 'application/json'),
+            '{"author":"author1@blogexercise.com","title":"title1","body":"body1"}'
+        );
+        $this->assertJsonResponse($this->client->getResponse(), 201, false);
+    }
+
+    /*public function testJsonPostArticleActionShouldReturn400WithBadParameters()
+    {
+        $this->client = static::createClient();
+        $this->client->request(
+            'POST',
+            '/api/v1/articles.json',
+            array(),
+            array(),
+            array('CONTENT_TYPE' => 'application/json'),
+            '{"foo":"bar"}'
+        );
+
+        $this->assertJsonResponse($this->client->getResponse(), 400, false);
+    }*/
+
     protected function assertJsonResponse($response, $statusCode = 200, $checkValidJson =  true, $contentType = 'application/json')
     {
         $this->assertEquals(

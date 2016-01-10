@@ -59,4 +59,46 @@ class ArticleController extends FOSRestController
 
         return $article;
     }
+
+    /**
+     * Create an Article from the submitted data.
+     *
+     * @ApiDoc(
+     *   resource = true,
+     *   description = "Creates a new article from the submitted data.",
+     *   input = "Djimenez\BlogBundle\Form\ArticleType",
+     *   statusCodes = {
+     *     200 = "Returned when successful",
+     *     400 = "Returned when the form has errors"
+     *   }
+     * )
+     *
+     * @Annotations\View(
+     *  template = "DjimenezBlogBundle:Article:newArticle.html.twig",
+     *  statusCode = Codes::HTTP_BAD_REQUEST,
+     *  templateVar = "form"
+     * )
+     *
+     * @param Request $request the request object
+     *
+     * @return FormTypeInterface|View
+     */
+    public function postArticleAction(Request $request)
+    {
+        try {
+            $newArticle = $this->container->get('djimenez_blog.article.handler')->post(
+                $request->request->all()
+            );
+
+            $routeOptions = array(
+                'id' => $newArticle->getId(),
+                '_format' => $request->get('_format')
+            );
+
+            return $this->routeRedirectView('api_v1_get_article', $routeOptions, Codes::HTTP_CREATED);
+        } catch (InvalidFormException $exception) {
+
+            return $exception->getForm();
+        }
+    }
 }

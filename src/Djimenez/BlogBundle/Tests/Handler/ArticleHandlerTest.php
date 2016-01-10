@@ -26,6 +26,7 @@ class ArticleHandlerTest extends \PHPUnit_Framework_TestCase
         $class = $this->getMock('Doctrine\Common\Persistence\Mapping\ClassMetadata');
         $this->om = $this->getMock('Doctrine\Common\Persistence\ObjectManager');
         $this->repository = $this->getMock('Doctrine\Common\Persistence\ObjectRepository');
+        $this->formFactory = $this->getMock('Symfony\Component\Form\FormFactoryInterface');
 
         $this->om->expects($this->any())
             ->method('getRepository')
@@ -49,14 +50,48 @@ class ArticleHandlerTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo($id))
             ->will($this->returnValue($article));
 
-        $this->articleHandler = $this->createArticleHandler($this->om, static::ARTICLE_CLASS);
+        $this->articleHandler = $this->createArticleHandler($this->om, static::ARTICLE_CLASS,  $this->formFactory);
 
         $this->articleHandler->get($id);
     }
 
-    protected function createArticleHandler($objectManager, $articleClass)
+    public function testPost()
     {
-        return new ArticleHandler($objectManager, $articleClass);
+        $author = 'author2@blogexercise.com';
+        $title = 'title2';
+        $body = 'body2';
+
+        $parameters = array('author'=> $author, 'title' => $title, 'body' => $body);
+
+        $article = $this->getArticle();
+        $article->setAuthor($author);
+        $article->setTitle($title);
+        $article->setBody($body);
+
+        $form = $this->getMock('Djimenez\BlogBundle\Tests\FormInterface'); //'Symfony\Component\Form\FormInterface' bugs on iterator
+        $form->expects($this->once())
+            ->method('submit')
+            ->with($this->anything());
+        $form->expects($this->once())
+            ->method('isValid')
+            ->will($this->returnValue(true));
+        $form->expects($this->once())
+            ->method('getData')
+            ->will($this->returnValue($article));
+
+        $this->formFactory->expects($this->once())
+            ->method('create')
+            ->will($this->returnValue($form));
+
+        $this->articleHandler = $this->createArticleHandler($this->om, static::ARTICLE_CLASS,  $this->formFactory);
+        $articleObject = $this->articleHandler->post($parameters);
+
+        $this->assertEquals($articleObject, $article);
+    }
+
+    protected function createArticleHandler($objectManager, $articleClass, $formFactory)
+    {
+        return new ArticleHandler($objectManager, $articleClass, $formFactory);
     }
 
     protected function getArticle()
