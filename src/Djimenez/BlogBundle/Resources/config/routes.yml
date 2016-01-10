@@ -1,0 +1,5 @@
+djimenez_blog_Article:
+    type: rest
+    prefix: /v1
+    resource: Djimenez\BlogBundle\Controller\ArticleController
+    name_prefix:  api_v1_

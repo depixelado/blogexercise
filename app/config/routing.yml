@@ -1,5 +1,4 @@
 djimenez_blog:
-    resource: "@DjimenezBlogBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
+    type: rest
+    prefix: /api
+    resource: "@DjimenezBlogBundle/Resources/config/routes.yml"
