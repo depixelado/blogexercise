@@ -7,7 +7,7 @@ interface AnswerInterface
      * Set author
      *
      * @param string $author
-     * @return PageInterface
+     * @return AnswerInterface
      */
     public function setAuthor($author);
 
@@ -22,7 +22,7 @@ interface AnswerInterface
      * Set body
      *
      * @param string $body
-     * @return PageInterface
+     * @return AnswerInterface
      */
     public function setBody($body);
 
@@ -37,14 +37,14 @@ interface AnswerInterface
      * Set article
      *
      * @param \Djimenez\BlogBundle\Entity\Article $article
-     * @return Answer
+     * @return AnswerInterface
      */
     public function setArticle(\Djimenez\BlogBundle\Entity\Article $article = null);
 
     /**
      * Get article
      *
-     * @return \Djimenez\BlogBundle\Entity\Article
+     * @return ArticleInterface
      */
     public function getArticle();
 }

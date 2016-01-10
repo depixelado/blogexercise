@@ -7,7 +7,7 @@ interface RateInterface
      * Set value
      *
      * @param string $value
-     * @return PageInterface
+     * @return RateInterface
      */
     public function setValue($value);
 

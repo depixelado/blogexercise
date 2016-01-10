@@ -7,7 +7,7 @@ interface ArticleInterface
      * Set author
      *
      * @param string $author
-     * @return PageInterface
+     * @return ArticleInterface
      */
     public function setAuthor($author);
 
@@ -22,7 +22,7 @@ interface ArticleInterface
      * Set title
      *
      * @param string $title
-     * @return PageInterface
+     * @return ArticleInterface
      */
     public function setTitle($title);
 
@@ -37,7 +37,7 @@ interface ArticleInterface
      * Set body
      *
      * @param string $body
-     * @return PageInterface
+     * @return ArticleInterface
      */
     public function setBody($body);
 

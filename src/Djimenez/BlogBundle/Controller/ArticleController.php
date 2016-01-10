@@ -20,7 +20,7 @@ class ArticleController extends FOSRestController
      * @ApiDoc(
      *   resource = true,
      *   description = "Gets a Article for a given id",
-     *   output = "Acme\BlogBundle\Entity\Article",
+     *   output = "Djimenez\BlogBundle\Entity\Article",
      *   statusCodes = {
      *     200 = "Returned when successful",
      *     404 = "Returned when the article is not found"
@@ -37,13 +37,26 @@ class ArticleController extends FOSRestController
      */
     public function getArticleAction($id)
     {
-        $article = $this->getDoctrine()->getRepository('Djimenez\BlogBundle\Entity\Article')->find($id);
+        $article = $this->getOr404($id);
 
-        if(!$article)
-        {
-
-        }
         return $article;
+    }
 
+    /**
+     * Fetch an Article or throw an 404 Exception.
+     *
+     * @param mixed $id
+     *
+     * @return ArticleInterface
+     *
+     * @throws NotFoundHttpException
+     */
+    protected function getOr404($id)
+    {
+        if (!($article = $this->container->get('djimenez_blog.article.handler')->get($id))) {
+            throw new NotFoundHttpException(sprintf('The resource \'%s\' was not found.',$id));
+        }
+
+        return $article;
     }
 }
